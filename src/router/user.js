@@ -35,4 +35,17 @@ module.exports = ({ router, models }) => {
       status: 200,
     };
   });
+
+  router.post("/user/delete", async (ctx) => {
+    const { userId } = ctx.request.body;
+    if (!userId) {
+      ctx.throw(400, "userId required");
+      return;
+    }
+    await User.destroy({ where: { id: userId } });
+    ctx.body = {
+      message: "ok",
+      status: 200,
+    };
+  });
 };
